@@ -1,0 +1,8 @@
+.DS_Store
+.idea
+
+tmp/
+
+# Custom Doom Emacs configuration files
+custom.el
+flycheck_custom.el
