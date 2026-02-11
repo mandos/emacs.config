@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Export Type
+# uuid: ext
+# key: ext
+# condition: t
+# --
+export type $1 = {
+       $0
+}

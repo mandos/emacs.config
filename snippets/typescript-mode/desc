@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: describe for spec tests
+# uuid: desc
+# key: desc
+# condition: t
+# --
+describe('$1', () => {
+  $0
+});

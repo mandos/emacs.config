@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: export const
+# uuid: exc
+# key: exc
+# condition: t
+# --
+export const ${1:var} = ${0:val};

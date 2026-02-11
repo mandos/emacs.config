@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: it for spec tests
+# uuid: it
+# key: it
+# condition: t
+# --
+it('$1', () => {
+  $0
+});

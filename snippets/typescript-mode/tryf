@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: Try block with finally
+# uuid: tryf
+# key: tryf
+# condition: t
+# --
+try {
+    `%`$1
+} catch (${2:err}) {
+    ${3:// Do something}
+} finally {
+  $0
+}

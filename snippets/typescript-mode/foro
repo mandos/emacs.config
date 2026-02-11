@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: For with of
+# uuid: foro
+# key: foro
+# condition: t
+# --
+for (const ${1:var} of ${2:what}) {
+    $0
+}
