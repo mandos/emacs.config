@@ -4,11 +4,27 @@
 ;; (add-to-list 'package-archives
 ;;              '("gnu-devel" . "https://elpa.gnu.org/devel/") :append)
 
+(use-package! kbd-mode)
+
+(setq display-line-numbers 'visual)
 (setq display-line-numbers-type 'visual)
 
-;; (map! :n "M-SPC" #'doom/leader)
-
 (setq org-duration-format (quote h:mm))
+
+(setq epg-pinentry-mode 'loopback)
+
+(add-hook 'code-review-mode-hook
+          (lambda ()
+            ;; include *Code-Review* buffer into current workspace
+            (persp-add-buffer (current-buffer))))
+
+(remove-hook 'vterm-mode-hook #'hide-mode-line-mode)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; in config.el
+;; (setq rainbow-delimiters-max-face-count 4) ; optional, it's set to 9 by default
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode) ; can also add `conf-mode-hook'
 
 ;; (map! :ni "<f5>" #'doom/leader)
 
