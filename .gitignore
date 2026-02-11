@@ -6,3 +6,10 @@ tmp/
 # Custom Doom Emacs configuration files
 custom.el
 flycheck_custom.el
+
+# Local machine-specific configuration with secrets
+config.local.el
+
+# Backup files
+*~
+*.bak
