@@ -201,4 +201,5 @@
 
        :user
        org-roam
+       claude
        )

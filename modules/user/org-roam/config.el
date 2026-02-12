@@ -47,13 +47,13 @@
         :desc "Org Roam UI" "n r u" #'org-roam-ui-open)
   (map! :map org-mode-map
         :localleader
-        :prefix ("m")
-        (:prefix ("u". "org-roam-ui")
-         :desc "Org Roam UI" "u" #'org-roam-ui-open
-         :desc "Toggle folow nodes" "f" #'org-roam-ui-follow-mode
-         :desc "Local graph" "l" #'org-roam-ui-node-local
-         :desc "Add to local graph" "a" #'org-roam-ui-add-to-local-graph
-         :desc "Remove from local graph" "r" #'org-roam-ui-remove-from-local-graph))
+        (:prefix ("m")
+                 (:prefix ("u" . "org-roam-ui")
+                  :desc "Org Roam UI" "u" #'org-roam-ui-open
+                  :desc "Toggle folow nodes" "f" #'org-roam-ui-follow-mode
+                  :desc "Local graph" "l" #'org-roam-ui-node-local
+                  :desc "Add to local graph" "a" #'org-roam-ui-add-to-local-graph
+                  :desc "Remove from local graph" "r" #'org-roam-ui-remove-from-local-graph)))
 
   :config
   (setq org-roam-ui-sync-theme t
