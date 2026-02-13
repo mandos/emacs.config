@@ -1,0 +1,144 @@
+#+title:    :user claude
+#+subtitle: Claude Code CLI integration for Doom Emacs
+#+created:  February 11, 2026
+#+since:    3.0.0
+
+* Description
+This module integrates Claude Code CLI into Doom Emacs, providing seamless
+access to Claude AI directly from your editor using the official Claude Code client.
+
+** Flags
+- =+ide= :: Use [[https://github.com/manzaltu/claude-code-ide.el][claude-code-ide]] instead of [[https://github.com/stevemolitor/claude-code.el][claude-code]]. Provides MCP-based
+  bidirectional integration where Claude can call back into Emacs (LSP/xref,
+  tree-sitter, diagnostics, imenu). When enabled, =claude-code= is not installed
+  and only =claude-code-ide= is active.
+
+** Features
+- Interactive chat with Claude Code CLI
+- Send code/text regions directly to Claude
+- Send entire buffers for analysis
+- Works with your existing Claude Code CLI installation
+- Native Emacs integration via claude-code.el
+
+** Features (=+ide= flag)
+- MCP server exposing Emacs internals (LSP, tree-sitter, diagnostics) to Claude
+- Ediff integration for reviewing diffs
+- Session management with list and switch support
+- Anti-flicker vterm rendering optimization
+- Custom system prompt support
+
+* Prerequisites
+** Claude Code CLI
+You need the Claude Code CLI installed. Get it from:
+https://github.com/anthropics/claude-code
+
+Install via npm:
+#+begin_src sh
+npm install -g @anthropic-ai/claude-code
+#+end_src
+
+Or via Homebrew (macOS):
+#+begin_src sh
+brew install claude
+#+end_src
+
+** Verify Installation
+#+begin_src sh
+claude --version
+#+end_src
+
+* Installation
+1. Enable this module in your =init.el=:
+   #+begin_src emacs-lisp
+   (doom! ...
+          :user
+          claude        ; standard claude-code integration
+          ;; or
+          (claude +ide) ; MCP-based claude-code-ide integration
+          ...)
+   #+end_src
+
+2. Run =doom sync= in your terminal
+
+3. Restart Emacs
+
+* Usage
+** Basic Commands (default)
+| Binding   | Command                                | Description               |
+|-----------+----------------------------------------+---------------------------|
+| =SPC l c= | ~claude-code~                          | Open Claude Code chat     |
+| =SPC l s= | ~claude-code-send-command~             | Send command to Claude    |
+| =SPC l r= | ~claude-code-send-region~              | Send selected region      |
+| =SPC l b= | ~claude-code-switch-to-buffer~         | Switch to Claude buffer   |
+| =SPC l t= | ~claude-code-toggle~                   | Toggle Claude window      |
+| =SPC l m= | ~claude-code-transient~                | Transient menu            |
+| =SPC l C= | ~claude-code-continue~                 | Continue conversation     |
+| =SPC l R= | ~claude-code-resume~                   | Resume conversation       |
+| =SPC l k= | ~claude-code-kill~                     | Kill session              |
+| =SPC l e= | ~claude-code-fix-error-at-point~       | Fix error at point        |
+| =SPC l o= | ~claude-code-send-buffer-file~         | Send buffer file path     |
+
+** Basic Commands (=+ide= flag)
+| Binding   | Command                                | Description                  |
+|-----------+----------------------------------------+------------------------------|
+| =SPC l c= | ~claude-code-ide~                      | Start Claude Code session    |
+| =SPC l s= | ~claude-code-ide-send-prompt~          | Send prompt from minibuffer  |
+| =SPC l r= | ~claude-code-ide-insert-at-mentioned~  | Send selected text to Claude |
+| =SPC l b= | ~claude-code-ide-switch-to-buffer~     | Focus Claude buffer          |
+| =SPC l B= | ~claude-code-ide-list-sessions~        | List and switch sessions     |
+| =SPC l t= | ~claude-code-ide-toggle~               | Toggle Claude window         |
+| =SPC l T= | ~claude-code-ide-toggle-recent~        | Toggle most recent globally  |
+| =SPC l m= | ~claude-code-ide-menu~                 | Transient menu               |
+| =SPC l C= | ~claude-code-ide-continue~             | Continue conversation        |
+| =SPC l R= | ~claude-code-ide-resume~               | Resume conversation          |
+| =SPC l k= | ~claude-code-ide-stop~                 | Stop session                 |
+| =SPC l ?= | ~claude-code-ide-check-status~         | Check CLI status             |
+
+* Configuration
+** Custom CLI Path
+If Claude Code CLI is not in your PATH:
+#+begin_src emacs-lisp
+(after! claude-code
+  (setq claude-code-cli-path "~/custom/path/to/claude"))
+#+end_src
+
+** Default Model
+#+begin_src emacs-lisp
+(after! claude-code
+  (setq claude-code-default-model "claude-sonnet-4-5-20250929"))
+#+end_src
+
+** IDE mode configuration
+#+begin_src emacs-lisp
+(after! claude-code-ide
+  (setq claude-code-ide-enable-mcp-server t)  ; enable MCP server
+  (setq claude-code-ide-use-ide-diff t)       ; use ediff for diffs
+  (setq claude-code-ide-system-prompt "...")) ; custom system prompt
+#+end_src
+
+* Tips
+- Claude Code CLI uses your configured API key from =~/.config/claude/config.json=
+- Chat sessions persist in buffers - you can save them like any other file
+- Works best with well-defined code selections
+- Combine with org-mode for documenting interactions
+- With =+ide=, Claude can query Emacs for LSP data, diagnostics, and syntax trees
+
+* Troubleshooting
+** "claude command not found"
+- Verify Claude Code CLI is installed: =which claude=
+- Add to PATH or set =claude-code-cli-path= in config
+
+** API Key Issues
+- Run =claude config= to set up your API key
+- Check =~/.config/claude/config.json= for configuration
+
+** Response Issues
+- Ensure you have internet connection
+- Verify API key has sufficient credits
+- Check Claude Code CLI works: =claude chat "hello"=
+
+* Resources
+- Claude Code CLI: https://github.com/anthropics/claude-code
+- claude-code.el: https://github.com/stevemolitor/claude-code.el
+- claude-code-ide.el: https://github.com/manzaltu/claude-code-ide.el
+- Anthropic API Docs: https://docs.anthropic.com/

@@ -201,5 +201,5 @@
 
        :user
        org-roam
-       claude
+       (claude +ide)
        )
