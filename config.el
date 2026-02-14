@@ -30,7 +30,6 @@
 (remove-hook 'vterm-mode-hook #'hide-mode-line-mode)
 
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-
 ;; in config.el
 ;; (setq rainbow-delimiters-max-face-count 4) ; optional, it's set to 9 by default
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode) ; can also add `conf-mode-hook'
@@ -111,8 +110,11 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-theme 'doom-one)
 (setq doom-theme 'doom-gruvbox)
+;; NOTE: Fixing menu which is not readable in my system.
+(set-face-attribute 'menu nil
+                    :background "#32302f"
+                    :foreground "#fabd2f")
 
 (setq org-directory "~/Org/")
 
@@ -138,34 +140,35 @@
           ("%suspended" . ?S)
           ("%completed" . ?C)
           ))
+
+  (require 'org-habit)
+  (add-to-list 'org-modules 'habit)
+  (setq org-habit-show-habits-only-for-today t)
+  (setq org-habit-show-all-today t)
+  (setq org-habit-show-done-always-green nil)
   )
+
 
 (after! org-agenda
   (setq org-agenda-files
         (mapcar 'abbreviate-file-name
                 (append
                  (split-string (shell-command-to-string "fd --type f --extension org --exclude roam --exclude website --exclude templates . ~/Org") "\n")
-                 (split-string (shell-command-to-string "rg \":%current:\" ~/Org/roam/ --color never --no-config --files-with-matches") "\n"))
+                 (split-string (shell-command-to-string "rg \"%current\" ~/Org/roam/ --color never --no-config --files-with-matches") "\n"))
                 ))
   ;; (add-to-list 'org-agenda-custom-commands
   (setq org-agenda-custom-commands
         '(
-          ("g" "My stuff to do (go go go)"
+          ("g" "My stuff to do (GTD)"
            ((agenda "")
             (tags-todo "+@next-DONE" ((org-agenda-files '("~/Org/gtd.org"))))
             (tags-todo "+@next+%current-DONE")
             (tags "+@2026" ((org-agenda-files '("~/Org/2026.org"))))))
           ("w" "Weekly review"
-           ((agenda "" ((org-agenda-span 'week)
-                        )))
+           ((agenda "" ((org-agenda-span 'week))))
            ((org-agenda-start-with-log-mode t)
             (org-agenda-start-day "-6d")))
           ))
-  (require 'org-habit)
-  (add-to-list 'org-modules 'habit)
-  (setq org-habit-show-habits-only-for-today t)
-  (setq org-habit-show-all-today t)
-  (setq org-habit-show-done-always-green nil)
   )
 
 (after! org-roam
@@ -186,10 +189,6 @@
                                     (evil-snipe-enable-highlight)
                                     (evil-snipe-enable-incremental-highlight))))
   (setq evil-snipe-scope 'buffer))
-
-
-
-;; friends
 
 ;; Keybinding
 (defun my-open-calendar ()
