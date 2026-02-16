@@ -161,15 +161,13 @@
         '(
           ("g" "My stuff to do (GTD)"
            ((agenda "")
-            (tags-todo "+@next-DONE" ((org-agenda-files '("~/Org/gtd.org"))))
             (tags-todo "+@next+%current-DONE")
-            (tags "+@2026" ((org-agenda-files '("~/Org/2026.org"))))))
+            (tags-todo "+@next-DONE" ((org-agenda-files '("~/Org/gtd.org"))))))
           ("w" "Weekly review"
            ((agenda "" ((org-agenda-span 'week))))
            ((org-agenda-start-with-log-mode t)
             (org-agenda-start-day "-6d")))
-          ))
-  )
+          )))
 
 (after! org-roam
   (setq org-roam-directory "~/Org/roam/"))
