@@ -3,6 +3,13 @@
 
 (if (modulep! +ide)
     (progn
+
+      ;; Insert mode after switch
+      (defun my/claude-code-ide-switch-to-buffer ()
+        (interactive)
+        (claude-code-ide-switch-to-buffer)
+        (evil-insert-state))
+
       ;; Claude Code IDE - MCP-based bidirectional integration
       (use-package! claude-code-ide
         :config
@@ -10,6 +17,8 @@
         (setq claude-code-ide-use-side-window t)
         (setq claude-code-ide-window-width 0.4)
         (setq claude-code-ide-window-side 'right)
+        ;; (setq claude-code-ide-cli-debug t)
+        ;; (setq claude-code-ide-debug t)
         (claude-code-ide-emacs-tools-setup)
 
         ;; Start in insert mode when switching to Claude IDE buffers
@@ -23,7 +32,7 @@
                      "C" #'claude-code-ide-continue
                      "R" #'claude-code-ide-resume
                      "k" #'claude-code-ide-stop
-                     "b" #'claude-code-ide-switch-to-buffer
+                     "b" #'my/claude-code-ide-switch-to-buffer
                      "B" #'claude-code-ide-list-sessions
                      "t" #'claude-code-ide-toggle
                      "T" #'claude-code-ide-toggle-recent
