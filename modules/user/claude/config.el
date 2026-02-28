@@ -33,6 +33,8 @@
                      "R" #'claude-code-ide-resume
                      "k" #'claude-code-ide-stop
                      "b" #'my/claude-code-ide-switch-to-buffer
+                     ;; Like insert, maybe more convinient for my muscle memmory
+                     "i" #'my/claude-code-ide-switch-to-buffer
                      "B" #'claude-code-ide-list-sessions
                      "t" #'claude-code-ide-toggle
                      "T" #'claude-code-ide-toggle-recent
