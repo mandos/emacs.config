@@ -44,8 +44,8 @@
 (map! :leader :desc "Vertical window" :n "w \\" #'+evil/window-vsplit-and-follow)
 (map! :leader :desc "Horizontal window" :n "w -" #'+evil/window-split-and-follow)
 (map! :leader :desc "Dirvish" :n "o m" #'dirvish)
-(map! :leader :desc "Terminal with Tmux" :n "o o"
-      (cmd! (start-process "alacritty" nil "alacritty" "-e" "bash" "-ic" (concat "t " (shell-quote-argument default-directory)))))
+(map! :leader :desc "Tmux in project dir" :n "o o"
+      (cmd! (start-process "alacritty" nil "alacritty" "-e" "bash" "-ilc" (concat "t " (shell-quote-argument (doom-project-root))))))
 (map! :leader :desc "Open Bibliographic note" :n "n B" #'citar-open)
 
 (map! :n "[ e" #'flymake-goto-prev-error)
